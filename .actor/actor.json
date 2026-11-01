@@ -1,0 +1,9 @@
+{
+  "actorSpecification": 1,
+  "name": "transcriptdock-video-transcripts",
+  "title": "Transcript Dock Video Transcripts",
+  "description": "Timed video transcripts through the Transcript Dock API. Bring your own API key.",
+  "version": "0.1",
+  "dockerfile": "../Dockerfile",
+  "input": "./input_schema.json"
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Transcript Dock",
+  "description": "Use your Transcript Dock API key. Captions cost 1 credit. AI transcription costs 2 credits per started minute on paid plans. Apify compute usage is separate.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "apiKey": { "title": "Transcript Dock API key", "type": "string", "editor": "textfield", "isSecret": true, "description": "Your key from Transcript Dock. It is stored encrypted by Apify." },
+    "urls": { "title": "Video links", "type": "array", "editor": "stringList", "description": "Up to 50 public YouTube, TikTok or Instagram Reel links.", "items": { "type": "string" } },
+    "mode": { "title": "Transcription mode", "type": "string", "editor": "select", "enum": ["captions_only", "auto", "transcribe"], "enumTitles": ["Captions only", "Captions with AI fallback", "AI transcription"], "default": "captions_only", "description": "AI requires a paid Transcript Dock plan. Instagram needs auto or transcribe mode." },
+    "maxCredits": { "title": "Credit cap per video", "type": "integer", "editor": "number", "minimum": 1, "maximum": 100000, "default": 10, "description": "Maximum Transcript Dock credits for each video. Multiply by your link count for the run cap." },
+    "timeoutSeconds": { "title": "Wait per video in seconds", "type": "integer", "editor": "number", "minimum": 5, "maximum": 1800, "default": 300, "description": "When the wait ends, the output includes the current job status and ID. The job may still finish later." }
+  },
+  "required": ["apiKey", "urls"]
+}
