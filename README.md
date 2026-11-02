@@ -50,7 +50,7 @@ The SDK loads platform input and decrypts secret fields automatically. For local
 
 ## Release evidence
 
-Local tests cover retry receipt reuse and caps, pending and failed jobs, redirect credential protection, checkpoint recovery, account isolation and error redaction. The Apify CLI input schema validator passes. A live Apify build and run with a real key remain unverified. Do not describe the Actor as production verified until that evidence exists. Live usage consumes Apify resources and Transcript Dock credits, so it needs the founder's explicit authorization.
+Local tests cover retry receipt reuse and caps, pending and failed jobs, redirect credential protection, checkpoint recovery, account isolation and error redaction. The Apify CLI input schema validator passes. On 2026-11-02, the Transcript Dock organization completed a real cloud build and a captions_only run with a 1 credit cap. The run succeeded with one dataset row containing a full transcript; the API reported a cached result and zero Transcript Dock credits charged. The run used limited permissions. Live AI transcription and paid source paths were not tested in this check. Apify compute usage is separate from Transcript Dock credits.
 
 Support: transcriptdock@volods.com
 
