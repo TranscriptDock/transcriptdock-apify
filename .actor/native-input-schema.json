@@ -1,0 +1,11 @@
+{
+  "title": "Video transcripts",
+  "description": "Get public YouTube and TikTok captions. Pay through Apify for completed transcripts. No separate API key is needed. AI transcription and Instagram are not available in this version.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "urls": { "title": "Video links", "type": "array", "editor": "stringList", "description": "Up to 50 public YouTube or TikTok links.", "items": { "type": "string" } },
+    "timeoutSeconds": { "title": "Wait per video", "type": "integer", "editor": "number", "minimum": 5, "maximum": 1800, "default": 300, "description": "Seconds to wait for each transcript. Incomplete and failed results are not charged." }
+  },
+  "required": ["urls"]
+}

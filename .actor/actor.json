@@ -2,10 +2,10 @@
   "actorSpecification": 1,
   "name": "transcriptdock-video-transcripts",
   "title": "Transcript Dock Video Transcripts",
-  "description": "Timed video transcripts through the Transcript Dock API. Bring your own API key.",
-  "version": "0.1",
-  "dockerfile": "../Dockerfile",
-  "input": "./input_schema.json",
+  "description": "Public YouTube and TikTok caption transcripts paid through Apify. No separate API key.",
+  "version": "0.2",
+  "dockerfile": "../Dockerfile.native",
+  "input": "./native-input-schema.json",
   "output": {
     "actorOutputSchemaVersion": 1,
     "title": "Transcript results",
@@ -15,6 +15,11 @@
         "description": "One result per unique video link, including job status, billing and the full transcript when available.",
         "template": "{{links.apiDefaultDatasetUrl}}/items",
         "type": "string"
+      },
+      "summary": {
+        "type": "string",
+        "title": "Run summary",
+        "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
       }
     }
   },
