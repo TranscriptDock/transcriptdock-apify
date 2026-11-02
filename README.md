@@ -2,22 +2,22 @@
 
 Get timed transcripts from public YouTube and TikTok videos through the Transcript Dock API. Instagram Reels use AI transcription on paid Transcript Dock plans in beta.
 
-Use your own [Transcript Dock API key](https://www.transcriptdock.com/docs?utm_source=apify&utm_medium=directory&utm_campaign=launch). Your key is a secret input encrypted by Apify. It is sent only to the fixed Transcript Dock API origin and is never written to the dataset or logs. Each user's key selects their own workspace; there is no shared billing account.
+Use your own Transcript Dock API key. Our website is available on the [Transcript Dock developer profile](https://apify.com/transcriptdock). Your key is a secret input encrypted by Apify. It is sent only to the fixed Transcript Dock API origin and is never written to the dataset or logs. Each user's key selects their own workspace; there is no shared billing account.
 
 ## Input and cost
 
 Enter up to 50 HTTPS video links. Duplicate links are removed before submission. Captions only is the default and costs 1 Transcript Dock credit per video. Selecting auto explicitly permits AI fallback; transcribe always requests AI. AI costs 2 credits per started minute and requires a paid Transcript Dock plan. Instagram requires auto or transcribe mode.
 
-`maxCredits` caps each video, default 10 credits. The maximum run spend is the cap multiplied by the number of unique links. Apify compute usage is separate. Check [Transcript Dock pricing](https://www.transcriptdock.com/pricing) and your Apify plan before running. This Actor has no additional rental or result fee configured.
+`maxCredits` caps each video, default 10 credits. The maximum run spend is the cap multiplied by the number of unique links. Apify compute usage is separate. Check your available Transcript Dock credits and Apify allowance before running. This Actor has no additional rental or result fee configured.
 
 `timeoutSeconds` limits waiting per video, default 300 seconds. Jobs can continue on Transcript Dock after waiting ends. The output preserves their actual status and job ID so you can retrieve them later. The Actor does not cancel or silently resubmit them.
 
-Example input with a clearly labelled placeholder key:
+Example input with placeholders. Replace both the key and video URL before running:
 
 ```json
 {
   "apiKey": "REPLACE_WITH_YOUR_TRANSCRIPT_DOCK_KEY",
-  "urls": ["https://www.youtube.com/watch?v=REPLACE_WITH_VIDEO_ID"],
+  "urls": ["PASTE_YOUR_PUBLIC_VIDEO_URL_HERE"],
   "mode": "captions_only",
   "maxCredits": 10,
   "timeoutSeconds": 300
@@ -52,6 +52,4 @@ The SDK loads platform input and decrypts secret fields automatically. For local
 
 Local tests cover retry receipt reuse and caps, pending and failed jobs, redirect credential protection, checkpoint recovery, account isolation and error redaction. The Apify CLI input schema validator passes. On 2026-11-02, the Transcript Dock organization completed a real cloud build and a captions_only run with a 1 credit cap. The run succeeded with one dataset row containing a full transcript; the API reported a cached result and zero Transcript Dock credits charged. The run used limited permissions. Live AI transcription and paid source paths were not tested in this check. Apify compute usage is separate from Transcript Dock credits.
 
-Support: transcriptdock@volods.com
-
-Privacy: https://www.transcriptdock.com/privacy
+For support, open the Actor's [Issues tab](https://apify.com/transcriptdock/transcriptdock-video-transcripts/issues).
