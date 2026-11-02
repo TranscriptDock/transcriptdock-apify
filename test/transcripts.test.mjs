@@ -132,7 +132,7 @@ test('recovery replays the receipt, skips checkpointed work and isolates changed
             if (failCheckpoint) { failCheckpoint = false; throw new Error('Local fixture checkpoint failure'); }
             progress = value;
         },
-        pushData: async (row) => rows.push(row), log: { info() {} },
+        pushData: async (row) => rows.push(row),
     };
     await assert.rejects(() => runActor(actor), /checkpoint failure/);
     await runActor(actor);
@@ -161,7 +161,7 @@ test('authorization failure stops the run and redacts echoed credentials', async
     const actor = {
         getInput: async () => ({ apiKey, urls: [url, 'https://youtu.be/another-fixture'] }),
         getEnv: () => ({ actorRunId: 'fixture-auth' }), getValue: async () => null,
-        pushData: async () => assert.fail('No success output allowed'), log: { info() {} },
+        pushData: async () => assert.fail('No success output allowed'),
     };
     await assert.rejects(() => runActor(actor), (error) => !error.message.includes(apiKey) && error.message.includes('[REDACTED]'));
     assert.equal(calls, 1);

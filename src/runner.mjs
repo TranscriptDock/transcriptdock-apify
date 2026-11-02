@@ -1,4 +1,5 @@
 import { createHash, randomUUID } from 'node:crypto';
+import { log } from 'apify';
 import { createClient, transcribeVideo, validateInput } from './transcripts.mjs';
 
 export async function runActor(actor) {
@@ -19,7 +20,7 @@ export async function runActor(actor) {
             const row = await transcribeVideo(client, input, runId, index);
             await actor.pushData(row);
             await actor.setValue('PROGRESS', { runId, inputHash, nextIndex: index + 1 });
-            actor.log.info(`Video ${index + 1} of ${input.urls.length}: ${row.status}`);
+            log.info(`Video ${index + 1} of ${input.urls.length}: ${row.status}`);
         }
     } catch (error) {
         throw new Error(client.redactText(error instanceof Error ? error.message : String(error)));
