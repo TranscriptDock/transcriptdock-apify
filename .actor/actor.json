@@ -13,7 +13,8 @@
       "results": {
         "title": "Video transcripts",
         "description": "One result per unique video link, including job status, billing and the full transcript when available.",
-        "template": "{{links.apiDefaultDatasetUrl}}/items"
+        "template": "{{links.apiDefaultDatasetUrl}}/items",
+        "type": "string"
       }
     }
   },
