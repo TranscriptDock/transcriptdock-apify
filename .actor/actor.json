@@ -82,5 +82,6 @@
         }
       }
     }
-  }
+  },
+  "buildTag": "native-preview"
 }
