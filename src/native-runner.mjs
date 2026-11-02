@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { log } from 'apify';
 import { createClient, transcribeVideo, validateInput } from './transcripts.mjs';
 
+export const NATIVE_ACTOR_OPTIONS = { storageClientOptions: { maxRetries: 0 } };
 export const RESULT_EVENT = 'apify-default-dataset-item';
 const ACTOR_ID = 'XPyfHR4ntccEGagtw';
 const OWNER_ID = 'mYgyUUBLZsjhXtb8h';

@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { ChargingManager, Configuration } from 'apify';
-import { nativeInput, RESULT_EVENT, runNativeActor } from '../src/native-runner.mjs';
+import { createServer } from 'node:http';
+import { Actor, ChargingManager, Configuration } from 'apify';
+import { NATIVE_ACTOR_OPTIONS, nativeInput, RESULT_EVENT, runNativeActor } from '../src/native-runner.mjs';
 
 // Local payment fixtures only. The real pinned Apify charging manager enforces
 // prices and run limits; neither customer funds nor a live provider is used.
@@ -133,4 +134,20 @@ test('ambiguous save, modified input and payment mismatches stop without another
         await assert.rejects(runNativeActor(mismatch.actor, settings), /payment history/);
         assert.equal(submissions(), 1);
     });
+});
+
+
+test('native storage client does not retry an ambiguous dataset write', async (t) => {
+    let writes = 0;
+    const server = createServer((req, res) => {
+        if (req.method === 'POST') writes++;
+        res.writeHead(503, { 'content-type': 'application/json' });
+        res.end(JSON.stringify({ error: { type: 'fixture-interruption', message: 'Local interruption' } }));
+    });
+    await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+    t.after(() => new Promise((resolve) => server.close(resolve)));
+    const actor = new Actor({ ...NATIVE_ACTOR_OPTIONS, apiBaseUrl: `http://127.0.0.1:${server.address().port}`, token: 'local-apify-fixture' });
+    await actor.getChargingManager().init();
+    await assert.rejects(actor.apifyClient.dataset('local-dataset-fixture').pushItems({ text: 'Local fixture only' }));
+    assert.equal(writes, 1);
 });
